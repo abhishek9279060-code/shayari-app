@@ -3,280 +3,599 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shayari Premium Pro Max</title>
+<title>Shayari Premium Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- AdMob Script -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXX"
+     crossorigin="anonymous"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
 body{
-  background: linear-gradient(135deg,#ffdde1,#ee9ca7);
-  min-height:100vh;
+background:linear-gradient(135deg,#ff9ab5,#ffc3d4);
+padding:15px;
+transition:0.3s;
 }
 
-/* HEADER */
-.top-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px;
-  color:#fff;
-  background: linear-gradient(135deg,#ff758c,#ff7eb3);
-  border-radius:0 0 20px 20px;
+body.dark{
+background:#121212;
+color:white;
 }
 
-.top-actions button{
-  border:none;
-  padding:8px 12px;
-  border-radius:10px;
-  background:rgba(255,255,255,.3);
-  color:#fff;
-  margin-left:6px;
+.header{
+background:#ff4f81;
+color:white;
+padding:18px;
+border-radius:18px;
+text-align:center;
+font-size:22px;
+font-weight:600;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-/* SEARCH */
+.dark-toggle{
+background:white;
+border:none;
+padding:5px 10px;
+border-radius:15px;
+cursor:pointer;
+}
+
 .search-box{
-  padding:12px;
+margin:15px 0;
 }
 
 .search-box input{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
-  border:none;
-  font-size:16px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+outline:none;
 }
 
-/* CATEGORY */
-.tabs{
-  display:flex;
-  gap:8px;
-  padding:10px;
-  overflow:auto;
+.categories{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+overflow-x:auto;
 }
 
-.tab{
-  padding:8px 14px;
-  background:#ffffff55;
-  border-radius:20px;
-  cursor:pointer;
-  white-space:nowrap;
+.categories button{
+padding:8px 15px;
+border:none;
+border-radius:20px;
+background:white;
+cursor:pointer;
 }
 
-.tab.active{
-  background:#ff758c;
-  color:#fff;
+.categories button.active{
+background:#ff4f81;
+color:white;
 }
-
-/* CARD */
-.container{padding:12px;}
 
 .card{
-  background:rgba(255,255,255,.7);
-  backdrop-filter:blur(10px);
-  padding:18px;
-  border-radius:18px;
-  margin-bottom:14px;
-  box-shadow:0 10px 20px rgba(0,0,0,.1);
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
 }
 
-.shayari{
-  font-size:18px;
-  margin-bottom:12px;
+body.dark .card{
+background:#1e1e1e;
 }
 
-/* BUTTONS */
-.btn-row{display:flex;flex-wrap:wrap;gap:6px;}
-
-.btn{
-  border:none;
-  padding:7px 12px;
-  border-radius:10px;
-  color:#fff;
-  cursor:pointer;
+.actions{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:10px;
 }
 
-.copy{background:#27ae60;}
-.share{background:#3b82f6;}
-.whatsapp{background:#25d366;}
-.status{background:#f59e0b;}
-.fav{background:#ff4d6d;}
-
-.fav.active{
-  animation:heart .4s;
+.actions button{
+flex:1;
+padding:8px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+color:white;
 }
 
-@keyframes heart{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.4);}
-  100%{transform:scale(1);}
+.copy{background:#4CAF50;}
+.share{background:#2196F3;}
+.status{background:#ff9800;}
+.fav{background:#e91e63;}
+
+.ad-box{
+margin:15px 0;
+text-align:center;
 }
 
-/* ADMOB PLACEHOLDER */
-.adbox{
-  margin:15px;
-  padding:20px;
-  text-align:center;
-  background:#ffffff88;
-  border-radius:12px;
-  font-weight:bold;
+.footer{
+text-align:center;
+margin-top:20px;
+font-size:13px;
 }
+
+.modal{
+display:none;
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:white;
+padding:20px;
+border-radius:20px 20px 0 0;
+box-shadow:0 -5px 20px rgba(0,0,0,0.2);
+}
+
+.modal button{
+width:100%;
+margin-top:10px;
+padding:10px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
 </style>
 </head>
-
 <body>
 
-<header class="top-header">
-  <h2>Shayari Premium Pro ✨</h2>
-  <div class="top-actions">
-    <button onclick="showFavorites()">⭐</button>
-    <button onclick="openPrivacy()">📜</button>
-  </div>
-</header>
+<div class="header">
+<span>✨ Shayari Premium Pro ✨</span>
+<button class="dark-toggle" onclick="toggleDark()">🌙</button>
+</div>
 
 <div class="search-box">
-  <input type="text" id="search" placeholder="Search shayari...">
+<input type="text" id="search" placeholder="Search shayari...">
 </div>
 
-<div class="tabs">
-  <div class="tab active" onclick="setCategory('All',this)">All</div>
-  <div class="tab" onclick="setCategory('Love',this)">Love</div>
-  <div class="tab" onclick="setCategory('Sad',this)">Sad</div>
-  <div class="tab" onclick="setCategory('Friend',this)">Friend</div>
+<div class="categories">
+<button class="active" onclick="filterCategory('all', this)">All</button>
+<button onclick="filterCategory('love', this)">Love</button>
+<button onclick="filterCategory('sad', this)">Sad</button>
+<button onclick="filterCategory('friend', this)">Friend</button>
+<button onclick="showFavorites(this)">Favorites</button>
 </div>
 
-<div class="adbox">📢 AdMob Banner Here</div>
+<!-- AdMob Banner -->
+<div class="ad-box">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXX"
+     data-ad-slot="1234567890"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
 
-<div class="container" id="list"></div>
+<div id="shayari-container"></div>
+
+<div class="footer">
+<a href="#" onclick="showPrivacy()">Privacy Policy</a><br>
+Made with ❤️ by Abhishek
+</div>
+
+<!-- Share Modal -->
+<div class="modal" id="shareModal">
+<h3>Share Options</h3>
+<button onclick="copyText()">Copy</button>
+<button onclick="statusText()">Post as Status</button>
+<button onclick="closeModal()">Close</button>
+</div>
 
 <script>
-const data=[
-{text:"Tere bina jeena mushkil hai ❤️",cat:"Love"},
-{text:"Mohabbat ki duniya haseen hoti hai 💕",cat:"Love"},
-{text:"Dil tootne ki awaaz nahi hoti 💔",cat:"Sad"},
-{text:"Waqt sab kuch sikha deta hai 😢",cat:"Sad"},
-{text:"Dosti sabse pyari hoti hai 🤝",cat:"Friend"}
+
+const shayariData = [
+{ text:"Tere bina jeena mushkil hai ❤️", category:"love"},
+{ text:"Mohabbat ki duniya haseen hoti hai 💕", category:"love"},
+{ text:"Dil tootne ki awaaz nahi hoti 💔", category:"sad"},
+{ text:"Dost zindagi ka sabse bada sahara hai 🤝", category:"friend"}
 ];
 
-let currentCat="All";
-let favorites=JSON.parse(localStorage.getItem("fav")||"[]");
+let currentShareText = "";
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-function render(){
-  const q=document.getElementById("search").value.toLowerCase();
-  const list=document.getElementById("list");
-  list.innerHTML="";
+const container = document.getElementById("shayari-container");
 
-  data
-  .filter(s=>(currentCat==="All"||s.cat===currentCat))
-  .filter(s=>s.text.toLowerCase().includes(q))
-  .forEach(s=>{
-    const isFav=favorites.includes(s.text);
-
-    const card=document.createElement("div");
-    card.className="card";
-    card.innerHTML=`
-      <div class="shayari">${s.text}</div>
-      <div class="btn-row">
-        <button class="btn copy">Copy</button>
-        <button class="btn share">Share</button>
-        <button class="btn whatsapp">WhatsApp</button>
-        <button class="btn status">Status</button>
-        <button class="btn fav ${isFav?'active':''}">❤️</button>
-        <button class="btn" style="background:#8b5cf6">🖼</button>
-      </div>
-    `;
-
-    // copy
-    card.querySelector(".copy").onclick=()=>{
-      navigator.clipboard.writeText(s.text);
-      alert("Copied!");
-    };
-
-    // share
-    card.querySelector(".share").onclick=()=>{
-      navigator.share?.({text:s.text});
-    };
-
-    // WhatsApp
-    card.querySelector(".whatsapp").onclick=()=>{
-      window.open("https://wa.me/?text="+encodeURIComponent(s.text));
-    };
-
-    // fav save
-    card.querySelector(".fav").onclick=(e)=>{
-      const i=favorites.indexOf(s.text);
-      if(i>-1) favorites.splice(i,1);
-      else favorites.push(s.text);
-      localStorage.setItem("fav",JSON.stringify(favorites));
-      e.target.classList.toggle("active");
-    };
-
-    // image generator
-    card.querySelectorAll(".btn")[5].onclick=()=>{
-      generateImage(s.text);
-    };
-
-    list.appendChild(card);
-  });
+function displayShayari(data){
+container.innerHTML="";
+data.forEach(item=>{
+const card=document.createElement("div");
+card.className="card";
+card.innerHTML=`
+<p>${item.text}</p>
+<div class="actions">
+<button class="copy" onclick="copyDirect('${item.text}')">Copy</button>
+<button class="share" onclick="openShare('${item.text}')">Share</button>
+<button class="status" onclick="statusDirect('${item.text}')">Status</button>
+<button class="fav" onclick="addFavorite('${item.text}')">❤️</button>
+</div>
+`;
+container.appendChild(card);
+});
 }
 
-function setCategory(cat,el){
-  currentCat=cat;
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  el.classList.add("active");
-  render();
+function filterCategory(category,btn){
+document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+
+if(category==="all"){
+displayShayari(shayariData);
+}else{
+displayShayari(shayariData.filter(item=>item.category===category));
+}
 }
 
-document.getElementById("search").oninput=render;
-
-function showFavorites(){
-  alert("Favourite saved: "+favorites.length);
+function toggleDark(){
+document.body.classList.toggle("dark");
 }
 
-function openPrivacy(){
-  alert("Add your privacy policy page.");
+function openShare(text){
+currentShareText=text;
+document.getElementById("shareModal").style.display="block";
 }
 
-/* IMAGE GENERATOR */
-function generateImage(text){
-  const c=document.createElement("canvas");
-  c.width=800;
-  c.height=800;
-  const ctx=c.getContext("2d");
-
-  const g=ctx.createLinearGradient(0,0,800,800);
-  g.addColorStop(0,"#ff758c");
-  g.addColorStop(1,"#ff7eb3");
-  ctx.fillStyle=g;
-  ctx.fillRect(0,0,800,800);
-
-  ctx.fillStyle="#fff";
-  ctx.font="40px Arial";
-  ctx.textAlign="center";
-
-  wrapText(ctx,text,400,400,600,50);
-
-  const url=c.toDataURL();
-  const w=window.open();
-  w.document.write('<img src="'+url+'" style="width:100%">');
+function closeModal(){
+document.getElementById("shareModal").style.display="none";
 }
 
-function wrapText(ctx,text,x,y,maxWidth,lineHeight){
-  const words=text.split(' ');
-  let line='';
-  let yy=y;
-  for(let n=0;n<words.length;n++){
-    const test=line+words[n]+' ';
-    if(ctx.measureText(test).width>maxWidth){
-      ctx.fillText(line,x,yy);
-      line=words[n]+' ';
-      yy+=lineHeight;
-    }else line=test;
-  }
-  ctx.fillText(line,x,yy);
+function copyText(){
+navigator.clipboard.writeText(currentShareText);
+alert("Copied!");
 }
 
-render();
+function copyDirect(text){
+navigator.clipboard.writeText(text);
+alert("Copied!");
+}
+
+function statusText(){
+alert("Status Ready: Copy and paste in WhatsApp 😉");
+}
+
+function statusDirect(text){
+alert("Copy & paste in WhatsApp status 😉");
+}
+
+function addFavorite(text){
+if(!favorites.includes(text)){
+favorites.push(text);
+localStorage.setItem("favorites",JSON.stringify(favorites));
+alert("Added to Favorites ❤️");
+}
+}
+
+function showFavorites(btn){
+document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+displayShayari(favorites.map(text=>({text:text,category:"fav"})));
+}
+
+document.getElementById("search").addEventListener("input",function(){
+const value=this.value.toLowerCase();
+displayShayari(shayariData.filter(item=>item.text.toLowerCase().includes(value)));
+});
+
+function showPrivacy(){
+alert("Privacy Policy: We do not collect personal data. Ads may use cookies.");
+}
+
+displayShayari(shayariData);
+
 </script>
 
 </body>
-</html>
+  </html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shayari Premium Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- AdMob Script -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXX"
+     crossorigin="anonymous"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#ff9ab5,#ffc3d4);
+padding:15px;
+transition:0.3s;
+}
+
+body.dark{
+background:#121212;
+color:white;
+}
+
+.header{
+background:#ff4f81;
+color:white;
+padding:18px;
+border-radius:18px;
+text-align:center;
+font-size:22px;
+font-weight:600;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.dark-toggle{
+background:white;
+border:none;
+padding:5px 10px;
+border-radius:15px;
+cursor:pointer;
+}
+
+.search-box{
+margin:15px 0;
+}
+
+.search-box input{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+outline:none;
+}
+
+.categories{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+overflow-x:auto;
+}
+
+.categories button{
+padding:8px 15px;
+border:none;
+border-radius:20px;
+background:white;
+cursor:pointer;
+}
+
+.categories button.active{
+background:#ff4f81;
+color:white;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+body.dark .card{
+background:#1e1e1e;
+}
+
+.actions{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:10px;
+}
+
+.actions button{
+flex:1;
+padding:8px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+color:white;
+}
+
+.copy{background:#4CAF50;}
+.share{background:#2196F3;}
+.status{background:#ff9800;}
+.fav{background:#e91e63;}
+
+.ad-box{
+margin:15px 0;
+text-align:center;
+}
+
+.footer{
+text-align:center;
+margin-top:20px;
+font-size:13px;
+}
+
+.modal{
+display:none;
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:white;
+padding:20px;
+border-radius:20px 20px 0 0;
+box-shadow:0 -5px 20px rgba(0,0,0,0.2);
+}
+
+.modal button{
+width:100%;
+margin-top:10px;
+padding:10px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+<span>✨ Shayari Premium Pro ✨</span>
+<button class="dark-toggle" onclick="toggleDark()">🌙</button>
+</div>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Search shayari...">
+</div>
+
+<div class="categories">
+<button class="active" onclick="filterCategory('all', this)">All</button>
+<button onclick="filterCategory('love', this)">Love</button>
+<button onclick="filterCategory('sad', this)">Sad</button>
+<button onclick="filterCategory('friend', this)">Friend</button>
+<button onclick="showFavorites(this)">Favorites</button>
+</div>
+
+<!-- AdMob Banner -->
+<div class="ad-box">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXX"
+     data-ad-slot="1234567890"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div id="shayari-container"></div>
+
+<div class="footer">
+<a href="#" onclick="showPrivacy()">Privacy Policy</a><br>
+Made with ❤️ by Abhishek
+</div>
+
+<!-- Share Modal -->
+<div class="modal" id="shareModal">
+<h3>Share Options</h3>
+<button onclick="copyText()">Copy</button>
+<button onclick="statusText()">Post as Status</button>
+<button onclick="closeModal()">Close</button>
+</div>
+
+<script>
+
+const shayariData = [
+{ text:"Tere bina jeena mushkil hai ❤️", category:"love"},
+{ text:"Mohabbat ki duniya haseen hoti hai 💕", category:"love"},
+{ text:"Dil tootne ki awaaz nahi hoti 💔", category:"sad"},
+{ text:"Dost zindagi ka sabse bada sahara hai 🤝", category:"friend"}
+];
+
+let currentShareText = "";
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+const container = document.getElementById("shayari-container");
+
+function displayShayari(data){
+container.innerHTML="";
+data.forEach(item=>{
+const card=document.createElement("div");
+card.className="card";
+card.innerHTML=`
+<p>${item.text}</p>
+<div class="actions">
+<button class="copy" onclick="copyDirect('${item.text}')">Copy</button>
+<button class="share" onclick="openShare('${item.text}')">Share</button>
+<button class="status" onclick="statusDirect('${item.text}')">Status</button>
+<button class="fav" onclick="addFavorite('${item.text}')">❤️</button>
+</div>
+`;
+container.appendChild(card);
+});
+}
+
+function filterCategory(category,btn){
+document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+
+if(category==="all"){
+displayShayari(shayariData);
+}else{
+displayShayari(shayariData.filter(item=>item.category===category));
+}
+}
+
+function toggleDark(){
+document.body.classList.toggle("dark");
+}
+
+function openShare(text){
+currentShareText=text;
+document.getElementById("shareModal").style.display="block";
+}
+
+function closeModal(){
+document.getElementById("shareModal").style.display="none";
+}
+
+function copyText(){
+navigator.clipboard.writeText(currentShareText);
+alert("Copied!");
+}
+
+function copyDirect(text){
+navigator.clipboard.writeText(text);
+alert("Copied!");
+}
+
+function statusText(){
+alert("Status Ready: Copy and paste in WhatsApp 😉");
+}
+
+function statusDirect(text){
+alert("Copy & paste in WhatsApp status 😉");
+}
+
+function addFavorite(text){
+if(!favorites.includes(text)){
+favorites.push(text);
+localStorage.setItem("favorites",JSON.stringify(favorites));
+alert("Added to Favorites ❤️");
+}
+}
+
+function showFavorites(btn){
+document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+displayShayari(favorites.map(text=>({text:text,category:"fav"})));
+}
+
+document.getElementById("search").addEventListener("input",function(){
+const value=this.value.toLowerCase();
+displayShayari(shayariData.filter(item=>item.text.toLowerCase().includes(value)));
+});
+
+function showPrivacy(){
+alert("Privacy Policy: We do not collect personal data. Ads may use cookies.");
+}
+
+displayShayari(shayariData);
+
+</script>
+
+</body>
+  </html>
