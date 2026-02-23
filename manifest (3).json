@@ -1,0 +1,18 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Dilverse sayari",
+  "orientation": "portrait",
+  "scope": "/",
+  "short_name": "Shayri",
+  "start_url": "/",
+  "theme_color": "#ff00ff",
+  "id": "Hindi Shayari App",
+  "description": "A modern shayari app with love, sad, attitude and motivational quotes. Copy, share and save your favorite shayari easily.",
+  "lang": "hi",
+  "categories": [
+    "entertainment",
+    "social"
+  ]
+}
